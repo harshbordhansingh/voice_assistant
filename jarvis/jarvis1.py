@@ -4,6 +4,7 @@ import speech_recognition as sr
 import wikipedia
 import webbrowser
 import os
+import time
 
 engine = pyttsx3.init('sapi5')
 voices = engine.getProperty('voices')
@@ -100,7 +101,13 @@ if __name__ == "__main__":
             elif 'wikipedia' in query:
                 wiki(query)
                 isTrue == True
-
+            
+            elif 'hi' in query or 'hello' in query:
+                speak('Hi sir, how may I help you?')
+            
+            elif 'thanks' in query or 'thank you' in query:
+                speak('Your welcome sir, any other way I could help you?')
+            
             elif 'how are you' in query:
                 speak("I am fine sir")
                 isTrue == True
@@ -124,7 +131,21 @@ if __name__ == "__main__":
                 strTime = datetime.datetime.now().strftime("%H:%M:%S")
                 speak(f"Sir, the time is {strTime}")
                 isTrue == True
+            
+            elif 'timer' in query or 'stopwatch' in query:
+                speak("For how many minutes?")
+                timing = takeCommand()
+                timing = timing.replace('minutes', '')
+                timing = timing.replace('minute', '')
+                timing = timing.replace('for', '')
+                timing = float(timing)
+                timing = timing * 60
+                speak(f'I will remind you in {timing} seconds')
 
+                time.sleep(timing)
+                speak('Your time has been finished sir')
+                
+            
             elif 'open code' in query:
                 code_path = "C:\\Users\\harsh\\AppData\\Local\\Programs\\Microsoft VS Code\\Code.exe"
                 os.startfile(code_path)
